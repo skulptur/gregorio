@@ -1,5 +1,5 @@
 {
-  "name": "clavius",
+  "name": "gregorio",
   "version": "0.0.0",
   "description": "Pure and framework agnostic date picker",
   "keywords": [
@@ -27,15 +27,16 @@
   },
   "scripts": {
     "build": "microbundle",
-    "start": "microbundle watch",
-    "test": "jest -c ./config/jest.config.js",
-    "test:watch": "npm t -- --watch",
-    "test:coverage": "npm t -- --coverage",
-    "test:ci": "npm t -- --ci",
-    "format": "prettier \"**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}\"",
     "format:fix": "npm run format -- --write",
+    "format": "prettier \"**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}\"",
+    "lint:fix": "npm run lint -- --fix",
     "lint": "tslint --project tsconfig.json --format codeFrame",
-    "lint:fix": "npm run lint -- --fix"
+    "prepublish": "npm run build",
+    "start": "microbundle watch",
+    "test:ci": "npm t -- --ci",
+    "test:coverage": "npm t -- --coverage",
+    "test:watch": "npm t -- --watch",
+    "test": "jest -c ./config/jest.config.js"
   },
   "husky": {
     "hooks": {
@@ -59,17 +60,17 @@
   "devDependencies": {
     "@types/jest": "24.0.11",
     "husky": "1.3.0",
-    "jest": "24.5.0",
     "jest-watch-typeahead": "0.2.0",
+    "jest": "24.5.0",
     "lint-staged": "8.1.0",
     "microbundle": "false0.11.0",
     "prettier": "1.16.4",
     "ts-jest": "24.0.0",
     "tslib": "1.9.3",
-    "tslint": "5.12.0",
     "tslint-config-prettier": "1.17.0",
     "tslint-config-standard": "8.0.1",
     "tslint-etc": "1.2.12",
+    "tslint": "5.12.0",
     "typescript-tslint-plugin": "0.2.1"
   }
 }
