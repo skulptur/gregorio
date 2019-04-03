@@ -18,7 +18,7 @@
   "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/skulptur/gregorio"
   },
   "author": "",
   "license": "MIT",
