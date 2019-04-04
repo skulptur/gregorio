@@ -1,5 +1,5 @@
 import en from 'date-fns/locale/en'
-import getPages from '../'
+import { getPages } from '../'
 
 describe('getPages', () => {
   const pageCount = 2
