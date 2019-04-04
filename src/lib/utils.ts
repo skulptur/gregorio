@@ -27,7 +27,7 @@ export const daysOfWeek = tuple(
 
 // calculates offset from sunday, eg monday is +1
 export const dayOffset = (dayName: DayName) => {
-  return daysOfWeek.indexOf(dayName.toLowerCase())
+  return daysOfWeek.indexOf(dayName)
 }
 
 export const castToDayOffset = (weekDay?: WeekDay) => {
