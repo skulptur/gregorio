@@ -1,10 +1,10 @@
-import { week } from './utils'
+import { daysOfWeek } from './utils'
 
 type Nullable<T> = T | null
 
 export type NullableDate = Nullable<Date>
 
-export type DayName = typeof week[number]
+export type DayName = typeof daysOfWeek[number]
 
 export type WeekDay = DayName | number
 
@@ -61,7 +61,7 @@ export interface CalendarPage {
 export interface Options {
   activeMonth: Date
   dateRange: NullableDateRange
-  hoverDate?: Date
+  hoverDate: Date | null
   isRange: boolean
   // isRtl?: boolean // TODO: missing
   locale: {}
@@ -69,8 +69,8 @@ export interface Options {
   minDate: Date
   onChange?: (change: NullableDateRange | Date) => void
   pageCount: number
-  setDateRange: (change: NullableDateRange) => {} // TODO: this is strange
-  setHoverDate: (date: Date) => {} // TODO: this is strange
+  setDateRange: (change: NullableDateRange) => void
+  setHoverDate: (date: Date) => void
   titleFormat?: string
   weekDayFormat: string
   weekStartsOn?: WeekDay
