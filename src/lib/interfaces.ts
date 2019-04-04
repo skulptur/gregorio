@@ -71,6 +71,6 @@ export interface Options {
   setDateRange: (change: NullableDateRange) => void
   setHoverDate: (date: Date) => void
   titleFormat?: string
-  weekDayFormat: string
+  weekDayFormat?: string
   weekStartsOn?: WeekDay
 }
