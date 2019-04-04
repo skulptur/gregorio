@@ -27,12 +27,12 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "build": "microbundle",
+    "build:example": "microbundle && node ./examples/index.js",
+    "build": "rimraf ./dist && microbundle",
     "format:fix": "npm run format -- --write",
     "format": "prettier \"**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}\"",
     "lint:fix": "npm run lint -- --fix",
     "lint": "tslint --project tsconfig.json --format codeFrame",
-    "prebuild": "rimraf ./dist",
     "prepublish": "npm run build",
     "start": "microbundle watch",
     "test:ci": "npm t -- --ci",
