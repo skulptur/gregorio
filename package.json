@@ -1,6 +1,6 @@
 {
   "name": "gregorio",
-  "version": "0.0.2",
+  "version": "0.0.0",
   "description": "Pure and framework agnostic date picker",
   "keywords": [
     "datepicker",
@@ -13,7 +13,7 @@
     "functional"
   ],
   "files": [
-    "./dist/**/*"
+    "/dist"
   ],
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
