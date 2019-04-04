@@ -67,7 +67,7 @@ export const getMonth = (month: Date, skip = 0, limit = 0) => {
   size = Math.min(Math.max(size, 0), limit || size)
   size = size < 0 ? 0 : size
 
-  return [...Array(size)].map((value, i) => addDays(startDay, i + skip))
+  return [...Array(size)].map((_value, i) => addDays(startDay, i + skip))
 }
 
 // return an array of objects with dates
