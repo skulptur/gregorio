@@ -63,10 +63,9 @@ export interface Options {
   dateRange: NullableDateRange
   hoverDate: Date | null
   isRange: boolean
-  // isRtl?: boolean // TODO: missing
   locale: {}
-  maxDate: Date
-  minDate: Date
+  maxDate?: Date
+  minDate?: Date
   onChange?: (change: NullableDateRange | Date) => void
   pageCount: number
   setDateRange: (change: NullableDateRange) => void
