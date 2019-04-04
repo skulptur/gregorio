@@ -1,3 +1,2 @@
-import { getPages } from './lib/getPages'
-
-export default getPages
+export { getPages } from './lib/getPages'
+export { WeekDay, NullableDateRange, Options } from './lib/interfaces'
