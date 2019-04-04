@@ -57,7 +57,7 @@ export const toSameDayRange = (date: Date): DateRange => {
 export const getWeek = (weekStartsOn: WeekDay) => {
   const startDay = startOfWeek(new Date(), { weekStartsOn: castToDayOffset(weekStartsOn) })
 
-  return [...Array(7)].map((_value, i) => addDays(startDay, i))
+  return Array.from(Array(7)).map((_value, i) => addDays(startDay, i))
 }
 
 // returns an array of dates of the month, optionally skip x number of days
@@ -67,7 +67,7 @@ export const getMonth = (month: Date, skip = 0, limit = 0) => {
   size = Math.min(Math.max(size, 0), limit || size)
   size = size < 0 ? 0 : size
 
-  return [...Array(size)].map((_value, i) => addDays(startDay, i + skip))
+  return Array.from(Array(size)).map((_value, i) => addDays(startDay, i + skip))
 }
 
 // return an array of objects with dates

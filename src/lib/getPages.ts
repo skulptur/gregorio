@@ -27,7 +27,7 @@ export function getPages({
     ? toSameDayRange(dateRange.startDate)
     : { startDate: null, endDate: null }
 
-  return [...Array(pageCount || 1)].map((_page, i) => {
+  return Array.from(Array(pageCount || 1)).map((_page, i) => {
     const month = addMonths(activeMonth, i)
 
     return {
