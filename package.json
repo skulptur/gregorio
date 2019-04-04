@@ -16,8 +16,6 @@
     "/dist"
   ],
   "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
-  "module": "dist/index.mjs",
   "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
