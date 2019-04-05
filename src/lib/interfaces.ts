@@ -67,7 +67,7 @@ export interface Options {
   maxDate?: Date
   minDate?: Date
   onChange?: (change: NullableDateRange | Date) => void
-  pageCount: number
+  pageCount?: number
   setDateRange: (change: NullableDateRange) => void
   setHoverDate: (date: Date) => void
   titleFormat?: string
