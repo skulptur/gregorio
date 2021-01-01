@@ -1,0 +1,189 @@
+$day-border-radius: 4px;
+$header-color: inherit;
+$nav-buttons-color: inherit;
+$day-of-week-color: inherit;
+
+$day-of-month-color: inherit;
+$today-color: grey;
+
+$selected-color: #fff;
+$selected-bg-color: #87b8ff;
+$selected-bg-color-hover: #7ab0ff;
+
+$within-selection-color: inherit;
+$within-selection-bg-color: #eff2ff;
+
+$unselected-hover-color: inherit;
+$unselected-hover-bg-color: #e2e6f7;
+
+$preview-selection-bg-color: #e8ebf9;
+
+$day-of-month-padding: 11px;
+$day-of-month-margin: 1px;
+
+.pages {
+  display: flex;
+  user-select: none;
+}
+
+.page {
+  font-size: 0.75em;
+  padding: 10px;
+  width: 300px;
+}
+
+.header {
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.header div {
+  display: flex;
+  justify-content: center;
+  flex-basis: percentage(1 / 7);
+}
+
+.header .title {
+  flex-basis: percentage(5 / 7);
+  color: $header-color;
+}
+
+.previous-button:before {
+  content: '←';
+}
+
+.next-button:before {
+  content: '→';
+}
+
+.previous-button:hover,
+.next-button:hover {
+  opacity: 0.6;
+}
+
+.previous-button,
+.next-button {
+  cursor: pointer;
+  flex: 1;
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.days-of-week {
+  cursor: default;
+  color: $day-of-week-color;
+}
+
+.days-of-week,
+.days-of-month {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day-of-week,
+.day-of-month {
+  display: flex;
+  flex-basis: percentage(1 / 7);
+  justify-content: center;
+}
+
+.day-of-week {
+  font-weight: bold;
+}
+
+.day-of-month {
+  color: $day-of-month-color;
+  padding-top: $day-of-month-padding;
+  padding-bottom: $day-of-month-padding;
+  margin-top: $day-of-month-margin;
+  margin-bottom: $day-of-month-margin;
+
+  &.today {
+    color: $today-color;
+  }
+
+  &.within-selection {
+    color: $within-selection-color;
+    background-color: $within-selection-bg-color;
+  }
+
+  &.selectable:hover {
+    cursor: pointer;
+    background-color: $unselected-hover-bg-color;
+  }
+
+  &.selectable:not(.start-date):not(.end-date):not(.preview):not(.within-selection) {
+    border-radius: $day-border-radius;
+  }
+
+  &.start-date:hover,
+  &.end-date:hover {
+    background-color: $selected-bg-color-hover;
+  }
+
+  &.start-date,
+  &.end-date {
+    color: $selected-color;
+    background-color: $selected-bg-color;
+  }
+
+  &.preview {
+    background-color: $preview-selection-bg-color;
+  }
+
+  &.start-date {
+    border-top-left-radius: $day-border-radius;
+    border-bottom-left-radius: $day-border-radius;
+  }
+
+  &.end-date {
+    border-top-right-radius: $day-border-radius;
+    border-bottom-right-radius: $day-border-radius;
+  }
+
+  &.inactive,
+  &.disabled {
+    opacity: 0.2;
+  }
+
+  &.inactive {
+    cursor: default;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+.rtl {
+  direction: rtl;
+
+  .previous-button:before {
+    content: '→';
+  }
+
+  .next-button:before {
+    content: '←';
+  }
+  .start-date {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
+  .end-date {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .start-date {
+    border-top-right-radius: $day-border-radius;
+    border-bottom-right-radius: $day-border-radius;
+  }
+
+  .end-date {
+    border-top-left-radius: $day-border-radius;
+    border-bottom-left-radius: $day-border-radius;
+  }
+}

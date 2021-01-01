@@ -73,7 +73,7 @@ export function getPages({
         };
       }),
       week: getWeek(weekStartsOn || 0).map(day =>
-        format(day, weekDayFormat || 'dd', { locale })
+        format(day, weekDayFormat || 'EEEEEE', { locale })
       ),
     };
   });
