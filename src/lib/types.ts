@@ -40,16 +40,16 @@ export interface MonthDayMeta {
 export interface MonthDay extends MonthDayMeta {
   date: Date;
   formattedText: string;
-  handleDateSelect: () => void;
-  handleDateHover: () => void;
+  select: () => void;
+  hover: () => void;
 }
 
 export interface MonthDayInfo {
   month: Date;
   weekStartsOn: WeekStartOffset;
-  startDate?: Date;
-  endDate?: Date;
-  hoverDate?: Date;
+  startDate: Date | null;
+  endDate: Date | null;
+  hoverDate: Date | null;
   minDate?: Date;
   maxDate?: Date;
 }

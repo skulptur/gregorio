@@ -6,22 +6,23 @@ import { getCalendar } from './utils/getCalendar';
 import { getRange } from './utils/getRange';
 import { getMonthDayMeta } from './utils/getMonthDayMeta';
 import { format, addMonths, isSameDay } from 'date-fns';
+import { noop } from './utils/noop';
 
 export function getPages({
-  pageCount,
+  pageCount = 1,
+  weekStartsOn = 0,
+  titleFormat = 'MMMM yyyy',
+  weekDayFormat = 'EEEEEE',
   activeMonth,
   locale,
-  weekStartsOn,
   hoverDate,
   minDate,
   maxDate,
-  titleFormat,
-  weekDayFormat,
   isRange,
   dateRange,
   setDateRange,
   setHoverDate,
-  onChange,
+  onChange = noop,
 }: Options): CalendarPage[] {
   const weekStartOffset = castToDayOffset(weekStartsOn);
 
@@ -31,19 +32,19 @@ export function getPages({
     ? toSameDayRange(dateRange.startDate)
     : { startDate: null, endDate: null };
 
-  return Array.from(Array(pageCount || 1)).map((_page, i) => {
+  return Array.from(Array(pageCount)).map((_page, i) => {
     const month = addMonths(activeMonth, i);
 
     return {
-      header: format(month, titleFormat || 'MMMM yyyy', { locale }),
+      header: format(month, titleFormat, { locale }),
       month: getCalendar(month, weekStartOffset).map(date => {
         const meta = getMonthDayMeta(date, {
           minDate,
           maxDate,
           month,
-          startDate: _dateRange.startDate || undefined,
-          endDate: _dateRange.endDate || undefined,
-          hoverDate: hoverDate || undefined,
+          startDate: _dateRange.startDate,
+          endDate: _dateRange.endDate,
+          hoverDate: hoverDate,
           weekStartsOn: weekStartOffset,
         });
 
@@ -55,23 +56,25 @@ export function getPages({
 
         return {
           ...day,
-          handleDateSelect: () => {
+          select: () => {
             if (!day.isSelectable) return;
+
             const range = isRange
               ? getRange(day.date, dateRange.startDate, dateRange.endDate)
               : toSameDayRange(day.date);
             setDateRange(range);
-            onChange && onChange(range);
+            onChange(range);
           },
-          handleDateHover: () => {
+
+          hover: () => {
             if (!hoverDate || !isSameDay(day.date, hoverDate)) {
               setHoverDate(day.date);
             }
           },
         };
       }),
-      week: getWeek(weekStartsOn || 0).map(day =>
-        format(day, weekDayFormat || 'EEEEEE', { locale })
+      week: getWeek(weekStartsOn).map(day =>
+        format(day, weekDayFormat, { locale })
       ),
     };
   });

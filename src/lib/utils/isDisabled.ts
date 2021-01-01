@@ -1,7 +1,6 @@
 import { isAfter, isBefore, subDays } from 'date-fns';
 
-// date is before minDate or after maxDate
-
+// is date before minDate or after maxDate
 export const isDisabled = (
   date: Date,
   minDate?: Date,

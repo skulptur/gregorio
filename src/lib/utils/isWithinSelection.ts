@@ -1,12 +1,13 @@
 import { isWithinInterval } from 'date-fns';
+import { NullableDate } from '../types';
 import { toRange } from './toRange';
 
-// date is between selection range
+// is date between selection range
 
 export const isWithinSelection = (
   date: Date,
-  startDate?: Date,
-  endDate?: Date
+  startDate: NullableDate,
+  endDate: NullableDate
 ): boolean => {
   if (!(startDate && endDate)) return false;
 

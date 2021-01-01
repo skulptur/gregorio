@@ -74,8 +74,8 @@ const App = () => {
                   <div
                     key={dayOfMonth.date.toString()}
                     className={`day-of-month ${getClassNames(dayOfMonth)}`}
-                    onClick={dayOfMonth.handleDateSelect}
-                    onMouseOver={dayOfMonth.handleDateHover}
+                    onClick={dayOfMonth.select}
+                    onMouseOver={dayOfMonth.hover}
                   >
                     {dayOfMonth.formattedText}
                   </div>

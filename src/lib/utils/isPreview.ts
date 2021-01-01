@@ -2,14 +2,15 @@ import { isWithinInterval } from 'date-fns';
 import { toRange } from './toRange';
 import { isStartDate } from './isStartDate';
 import { isEndDate } from './isEndDate';
+import { NullableDate } from '../types';
 
-// date is between startDate (exclusive) and hoverDate (inclusive)
+// is date between startDate (exclusive) and hoverDate (inclusive)
 
 export const isPreview = (
   date: Date,
-  startDate?: Date,
-  endDate?: Date,
-  hoverDate?: Date
+  startDate: NullableDate,
+  endDate: NullableDate,
+  hoverDate: NullableDate
 ): boolean => {
   if (!startDate || !hoverDate) return false;
 
