@@ -2,28 +2,12 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { getPages, NullableDateRange } from '../dist';
+import { getPages, NullableDateRange, CalendarDay } from '../dist';
 import { enUS } from 'date-fns/locale';
 import { addMonths } from 'date-fns';
 import cx from 'classnames';
 
-const getClassNames = (day: any) => {
-  return cx({
-    today: day.isToday,
-    weekend: day.isWeekend,
-    'start-date': day.isStartDate,
-    'end-date': day.isEndDate,
-    'within-selection': day.isWithinSelection,
-    preview: day.isPreview,
-    selectable: !day.isLastMonth && !day.isNextMonth && !day.isDisabled,
-    inactive: day.isLastMonth || day.isNextMonth,
-    'last-month': day.isLastMonth,
-    'next-month': day.isNextMonth,
-    disabled: day.isDisabled,
-  });
-};
-
-const App = () => {
+const useGregorio = () => {
   const [activeMonth, setActiveMonth] = React.useState(new Date());
   const [hoverDate, setHoverDate] = React.useState<Date | null>(null);
   const [dateRange, setDateRange] = React.useState<NullableDateRange>({
@@ -50,6 +34,16 @@ const App = () => {
     setActiveMonth(addMonths(activeMonth, 1));
   };
 
+  return {
+    pages,
+    previousMonth,
+    nextMonth,
+  };
+};
+
+const App = () => {
+  const { pages, previousMonth, nextMonth } = useGregorio();
+
   return (
     <div className="pages">
       {pages.map((page, pageId) => {
@@ -66,24 +60,24 @@ const App = () => {
             </div>
 
             <div className="days-of-week">
-              {page.week.map(day => {
+              {page.week.map(dayOfWeek => {
                 return (
-                  <div key={day} className="day-of-week">
-                    {day}
+                  <div key={dayOfWeek} className="day-of-week">
+                    {dayOfWeek}
                   </div>
                 );
               })}
             </div>
             <div className="days-of-month">
-              {page.month.map((day, dayId) => {
+              {page.month.map(dayOfMonth => {
                 return (
                   <div
-                    key={`${pageId}-${dayId}-${day.formattedText}`}
-                    className={`day-of-month ${getClassNames(day)}`}
-                    onClick={day.handleDateSelect}
-                    onMouseOver={day.handleDateHover}
+                    key={dayOfMonth.date.toString()}
+                    className={`day-of-month ${getClassNames(dayOfMonth)}`}
+                    onClick={dayOfMonth.handleDateSelect}
+                    onMouseOver={dayOfMonth.handleDateHover}
                   >
-                    {day.formattedText}
+                    {dayOfMonth.formattedText}
                   </div>
                 );
               })}
@@ -93,6 +87,22 @@ const App = () => {
       })}
     </div>
   );
+};
+
+const getClassNames = (day: CalendarDay) => {
+  return cx({
+    today: day.isToday,
+    weekend: day.isWeekend,
+    'start-date': day.isStartDate,
+    'end-date': day.isEndDate,
+    'within-selection': day.isWithinSelection,
+    preview: day.isPreview,
+    selectable: day.isSelectable,
+    inactive: day.isLastMonth || day.isNextMonth,
+    'last-month': day.isLastMonth,
+    'next-month': day.isNextMonth,
+    disabled: day.isDisabled,
+  });
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));

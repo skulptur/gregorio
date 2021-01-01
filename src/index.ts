@@ -4,4 +4,5 @@ export {
   NullableDateRange,
   Options,
   CalendarPage,
+  CalendarDay,
 } from './lib/interfaces';
