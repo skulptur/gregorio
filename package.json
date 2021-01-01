@@ -1,6 +1,5 @@
 {
-  "name": "gregorio",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Pure and framework agnostic date picker",
   "keywords": [
     "datepicker",
@@ -12,68 +11,66 @@
     "pure",
     "functional"
   ],
-  "files": [
-    "/dist"
-  ],
-  "main": "dist/index.js",
-  "typings": "./dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/skulptur/gregorio"
-  },
-  "author": "",
   "license": "MIT",
-  "jest": {
-    "testEnvironment": "node"
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
   },
   "scripts": {
-    "build:example": "microbundle && node ./examples/index.js",
-    "build": "rimraf ./dist && microbundle",
-    "format:fix": "npm run format -- --write",
-    "format": "prettier \"**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}\"",
-    "lint:fix": "npm run lint -- --fix",
-    "lint": "tslint --project tsconfig.json --format codeFrame",
-    "prepublish": "npm run build",
-    "start": "microbundle watch",
-    "test:ci": "npm t -- --ci",
-    "test:coverage": "npm t -- --coverage",
-    "test:watch": "npm t -- --watch",
-    "test": "jest -c ./config/jest.config.js"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsdx lint"
     }
   },
-  "lint-staged": {
-    "**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "src/**/*.{ts,tsx}": [
-      "npm run lint:fix",
-      "git add"
-    ]
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
-  "peerDependencies": {},
-  "dependencies": {
-    "tandris": "^0.0.5"
-  },
+  "name": "gregorio",
+  "author": "Gustavo Spredemann",
+  "module": "dist/gregorio.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/gregorio.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/gregorio.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "devDependencies": {
-    "@types/jest": "24.0.11",
-    "husky": "1.3.0",
-    "jest": "24.5.0",
-    "jest-watch-typeahead": "0.2.0",
-    "lint-staged": "8.1.0",
-    "microbundle": "false0.11.0",
-    "prettier": "1.16.4",
-    "rimraf": "^2.6.3",
-    "ts-jest": "24.0.0",
-    "tslib": "1.9.3",
-    "tslint": "5.12.0",
-    "tslint-config-prettier": "1.17.0",
-    "tslint-config-standard": "8.0.1",
-    "tslint-etc": "1.2.12",
-    "typescript-tslint-plugin": "0.2.1"
+    "@size-limit/preset-small-lib": "^4.9.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "husky": "^4.3.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "size-limit": "^4.9.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "date-fns": "^2.16.1",
+    "tandris": "^0.0.5"
   }
 }
