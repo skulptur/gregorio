@@ -1,4 +1,5 @@
 import { daysOfWeek } from './daysOfWeek';
+import { Locale } from 'date-fns';
 
 export type WeekStartOffset = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -65,7 +66,7 @@ export type Options = {
   dateRange: NullableDateRange;
   hoverDate: NullableDate;
   isRange: boolean;
-  locale: {}; // TODO: use date-fns locale type
+  locale?: Locale;
   maxDate?: Date;
   minDate?: Date;
   onChange?: (change: NullableDateRange | Date) => void;
