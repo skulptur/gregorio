@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { getPages, NullableDateRange, CalendarDay } from '../dist';
+import { getPages, NullableDateRange, MonthDay } from '../dist';
 import { enUS } from 'date-fns/locale';
 import { addMonths } from 'date-fns';
 import cx from 'classnames';
@@ -89,7 +89,7 @@ const App = () => {
   );
 };
 
-const getClassNames = (day: CalendarDay) => {
+const getClassNames = (day: MonthDay) => {
   return cx({
     today: day.isToday,
     weekend: day.isWeekend,

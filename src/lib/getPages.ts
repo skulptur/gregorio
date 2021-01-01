@@ -1,12 +1,10 @@
-import { CalendarPage, Options } from './interfaces';
-import {
-  getCalendar,
-  getWeek,
-  castToDayOffset,
-  getRange,
-  toSameDayRange,
-} from './utils';
-import { getCalendarDayMeta } from './meta';
+import { CalendarPage, Options } from './types';
+import { castToDayOffset } from './utils/castToDayOffset';
+import { toSameDayRange } from './utils/toRange';
+import { getWeek } from './utils/getWeek';
+import { getCalendar } from './utils/getCalendar';
+import { getRange } from './utils/getRange';
+import { getMonthDayMeta } from './utils/getMonthDayMeta';
 import { format, addMonths, isSameDay } from 'date-fns';
 
 export function getPages({
@@ -39,7 +37,7 @@ export function getPages({
     return {
       header: format(month, titleFormat || 'MMMM yyyy', { locale }),
       month: getCalendar(month, weekStartOffset).map(date => {
-        const meta = getCalendarDayMeta(date, {
+        const meta = getMonthDayMeta(date, {
           minDate,
           maxDate,
           month,

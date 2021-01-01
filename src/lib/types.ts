@@ -1,4 +1,4 @@
-import { daysOfWeek } from './utils';
+import { daysOfWeek } from './daysOfWeek';
 
 export type WeekStartOffset = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -20,7 +20,7 @@ export interface NullableDateRange {
   endDate: Date | null;
 }
 
-export interface CalendarDayMeta {
+export interface MonthDayMeta {
   isFirstDayOfWeek: boolean;
   isLastDayOfWeek: boolean;
   isFirstDayOfMonth: boolean;
@@ -37,14 +37,14 @@ export interface CalendarDayMeta {
   isSelectable: boolean;
 }
 
-export interface CalendarDay extends CalendarDayMeta {
+export interface MonthDay extends MonthDayMeta {
   date: Date;
   formattedText: string;
   handleDateSelect: () => void;
   handleDateHover: () => void;
 }
 
-export interface CalendarDayInfo {
+export interface MonthDayInfo {
   month: Date;
   weekStartsOn: WeekStartOffset;
   startDate?: Date;
@@ -55,7 +55,7 @@ export interface CalendarDayInfo {
 }
 
 export interface CalendarPage {
-  month: CalendarDay[];
+  month: MonthDay[];
   week: string[];
   header: string;
 }
