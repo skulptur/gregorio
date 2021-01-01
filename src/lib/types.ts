@@ -16,8 +16,8 @@ export interface DateRange {
 }
 
 export interface NullableDateRange {
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: NullableDate;
+  endDate: NullableDate;
 }
 
 export interface MonthDayMeta {
@@ -47,9 +47,9 @@ export interface MonthDay extends MonthDayMeta {
 export interface MonthDayInfo {
   month: Date;
   weekStartsOn: WeekStartOffset;
-  startDate: Date | null;
-  endDate: Date | null;
-  hoverDate: Date | null;
+  startDate: NullableDate;
+  endDate: NullableDate;
+  hoverDate: NullableDate;
   minDate?: Date;
   maxDate?: Date;
 }
@@ -63,9 +63,9 @@ export interface CalendarPage {
 export interface Options {
   activeMonth: Date;
   dateRange: NullableDateRange;
-  hoverDate: Date | null;
+  hoverDate: NullableDate;
   isRange: boolean;
-  locale: {};
+  locale: {}; // TODO: use date-fns locale type
   maxDate?: Date;
   minDate?: Date;
   onChange?: (change: NullableDateRange | Date) => void;
