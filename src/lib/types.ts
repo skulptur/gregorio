@@ -10,17 +10,17 @@ export type DayName = typeof daysOfWeek[number];
 
 export type WeekDay = DayName | number;
 
-export interface DateRange {
+export type DateRange = {
   startDate: Date;
   endDate: Date;
-}
+};
 
-export interface NullableDateRange {
+export type NullableDateRange = {
   startDate: NullableDate;
   endDate: NullableDate;
-}
+};
 
-export interface MonthDayMeta {
+export type MonthDayMeta = {
   isFirstDayOfWeek: boolean;
   isLastDayOfWeek: boolean;
   isFirstDayOfMonth: boolean;
@@ -35,16 +35,16 @@ export interface MonthDayMeta {
   isPreview: boolean;
   isDisabled: boolean;
   isSelectable: boolean;
-}
+};
 
-export interface MonthDay extends MonthDayMeta {
+export type MonthDay = MonthDayMeta & {
   date: Date;
   formattedText: string;
   select: () => void;
   hover: () => void;
-}
+};
 
-export interface MonthDayInfo {
+export type MonthDayInfo = {
   month: Date;
   weekStartsOn: WeekStartOffset;
   startDate: NullableDate;
@@ -52,15 +52,15 @@ export interface MonthDayInfo {
   hoverDate: NullableDate;
   minDate?: Date;
   maxDate?: Date;
-}
+};
 
-export interface CalendarPage {
+export type CalendarPage = {
   month: MonthDay[];
   week: string[];
   header: string;
-}
+};
 
-export interface Options {
+export type Options = {
   activeMonth: Date;
   dateRange: NullableDateRange;
   hoverDate: NullableDate;
@@ -75,4 +75,4 @@ export interface Options {
   titleFormat?: string;
   weekDayFormat?: string;
   weekStartsOn?: WeekDay;
-}
+};
