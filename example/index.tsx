@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { getPages } from '../dist';
+import { getPages, NullableDateRange } from '../dist';
 import { enUS } from 'date-fns/locale';
 import { addMonths } from 'date-fns';
 import cx from 'classnames';
@@ -25,16 +25,21 @@ const getClassNames = (day: any) => {
 
 const App = () => {
   const [activeMonth, setActiveMonth] = React.useState(new Date());
+  const [hoverDate, setHoverDate] = React.useState<Date | null>(null);
+  const [dateRange, setDateRange] = React.useState<NullableDateRange>({
+    startDate: null,
+    endDate: null,
+  });
 
   const pages = getPages({
     activeMonth,
-    dateRange: { startDate: null, endDate: null },
-    hoverDate: null,
+    dateRange,
+    setDateRange,
+    hoverDate,
+    setHoverDate,
     isRange: true,
     locale: enUS,
     pageCount: 2,
-    setDateRange: () => {},
-    setHoverDate: () => {},
   });
 
   const previousMonth = () => {
@@ -61,12 +66,9 @@ const App = () => {
             </div>
 
             <div className="days-of-week">
-              {page.week.map((day, weekDayId) => {
+              {page.week.map(day => {
                 return (
-                  <div
-                    key={`${pageId}-${weekDayId}-${day}`}
-                    className="day-of-week"
-                  >
+                  <div key={day} className="day-of-week">
                     {day}
                   </div>
                 );
@@ -78,6 +80,8 @@ const App = () => {
                   <div
                     key={`${pageId}-${dayId}-${day.formattedText}`}
                     className={`day-of-month ${getClassNames(day)}`}
+                    onClick={day.handleDateSelect}
+                    onMouseOver={day.handleDateHover}
                   >
                     {day.formattedText}
                   </div>
