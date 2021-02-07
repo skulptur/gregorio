@@ -56,9 +56,9 @@ export type MonthDayInfo = {
 };
 
 export type CalendarPage = {
-  month: MonthDay[];
-  week: string[];
-  header: string;
+  days: MonthDay[];
+  weekLabels: string[];
+  title: string;
 };
 
 export type Options = {

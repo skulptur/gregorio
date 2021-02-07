@@ -26,8 +26,6 @@ const useGregorio = () => {
     pageCount: 2,
   });
 
-  console.log(pages);
-
   const previousMonth = () => {
     setActiveMonth(addMonths(activeMonth, -1));
   };
@@ -36,8 +34,30 @@ const useGregorio = () => {
     setActiveMonth(addMonths(activeMonth, 1));
   };
 
+  const pagesWithReactPropsGetter = pages.map(page => {
+    return {
+      ...page,
+      days: page.days.map(day => {
+        return {
+          ...day,
+          getDayProps: () => {
+            // TODO: add key, or even add it on the lib itself
+            return {
+              onClick: () => {
+                day.select();
+              },
+              onMouseOver: () => {
+                day.hover();
+              },
+            };
+          },
+        };
+      }),
+    };
+  });
+
   return {
-    pages,
+    pages: pagesWithReactPropsGetter,
     previousMonth,
     nextMonth,
   };
@@ -55,31 +75,30 @@ const App = () => {
               <div className="nav">
                 <div className="previous-button" onClick={previousMonth}></div>
               </div>
-              <div className="title">{page.header}</div>
+              <div className="title">{page.title}</div>
               <div className="nav">
                 <div className="next-button" onClick={nextMonth}></div>
               </div>
             </div>
 
             <div className="days-of-week">
-              {page.week.map(dayOfWeek => {
+              {page.weekLabels.map(weekDayLabel => {
                 return (
-                  <div key={dayOfWeek} className="day-of-week">
-                    {dayOfWeek}
+                  <div key={weekDayLabel} className="day-of-week">
+                    {weekDayLabel}
                   </div>
                 );
               })}
             </div>
             <div className="days-of-month">
-              {page.month.map(dayOfMonth => {
+              {page.days.map(pageDay => {
                 return (
                   <div
-                    key={dayOfMonth.date.toString()}
-                    className={`day-of-month ${getClassNames(dayOfMonth)}`}
-                    onClick={dayOfMonth.select}
-                    onMouseOver={dayOfMonth.hover}
+                    key={pageDay.date.toString()}
+                    className={`day-of-month ${getClassNames(pageDay)}`}
+                    {...pageDay.getDayProps()}
                   >
-                    {dayOfMonth.formattedText}
+                    {pageDay.formattedText}
                   </div>
                 );
               })}

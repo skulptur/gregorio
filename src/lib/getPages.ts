@@ -36,8 +36,8 @@ export function getPages({
     const month = addMonths(activeMonth, i);
 
     return {
-      header: format(month, titleFormat, { locale }),
-      month: getCalendar(month, weekStartOffset).map(date => {
+      title: format(month, titleFormat, { locale }),
+      days: getCalendar(month, weekStartOffset).map(date => {
         const meta = getMonthDayMeta(date, {
           minDate,
           maxDate,
@@ -73,7 +73,7 @@ export function getPages({
           },
         };
       }),
-      week: getWeek(weekStartsOn).map(day =>
+      weekLabels: getWeek(weekStartsOn).map(day =>
         format(day, weekDayFormat, { locale })
       ),
     };
