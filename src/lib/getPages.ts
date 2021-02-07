@@ -1,13 +1,45 @@
-import { CalendarPage, Options } from './types';
+import { NullableDate, NullableDateRange, WeekDay } from './types';
 import { castToDayOffset } from './utils/castToDayOffset';
 import { toSameDayRange } from './utils/toRange';
 import { getWeek } from './utils/getWeek';
 import { getCalendar } from './utils/getCalendar';
 import { getRange } from './utils/getRange';
-import { getMonthDayMeta } from './utils/getMonthDayMeta';
+import { getMonthDayMeta, DayMeta } from './utils/getMonthDayMeta';
 import { format, addMonths, isSameDay } from 'date-fns';
 import { noop } from './utils/noop';
 
+export type GetPagesProps = {
+  activeMonth: Date;
+  dateRange: NullableDateRange;
+  hoverDate: NullableDate;
+  isRange: boolean;
+  locale?: Locale;
+  maxDate?: Date;
+  minDate?: Date;
+  onChange?: (change: NullableDateRange | Date) => void;
+  pageCount?: number;
+  setDateRange: (change: NullableDateRange) => void;
+  setHoverDate: (date: Date) => void;
+  titleFormat?: string;
+  weekDayFormat?: string;
+  weekStartsOn?: WeekDay;
+};
+
+export type CalendarPage = {
+  days: Day[];
+  weekLabels: string[];
+  title: string;
+};
+
+export type Day = DayMeta & {
+  date: Date;
+  formattedText: string;
+  select: () => void;
+  hover: () => void;
+};
+
+// TODO: add state and setState to the props
+// TODO: instead of CalendarPage[] it would be better to return the page switch handlers already
 export function getPages({
   pageCount = 1,
   weekStartsOn = 0,
@@ -23,7 +55,7 @@ export function getPages({
   setDateRange,
   setHoverDate,
   onChange = noop,
-}: Options): CalendarPage[] {
+}: GetPagesProps): CalendarPage[] {
   const weekStartOffset = castToDayOffset(weekStartsOn);
 
   const _dateRange = isRange

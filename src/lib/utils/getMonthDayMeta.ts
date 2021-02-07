@@ -7,7 +7,7 @@ import {
   isFirstDayOfMonth,
   isLastDayOfMonth,
 } from 'date-fns';
-import { MonthDayMeta, MonthDayInfo } from '../types';
+import { NullableDate, WeekStartOffset } from '../types';
 import { getPickerRange } from './getPickerRange';
 import { isWithinSelection } from './isWithinSelection';
 import { isDisabled } from './isDisabled';
@@ -16,6 +16,33 @@ import { isEndDate } from './isEndDate';
 import { isPreview } from './isPreview';
 import { isFirstDayOfWeek } from './isFirstDayOfWeek';
 import { isLastDayOfWeek } from './isLastDayOfWeek';
+
+export type DayMeta = {
+  isFirstDayOfWeek: boolean;
+  isLastDayOfWeek: boolean;
+  isFirstDayOfMonth: boolean;
+  isLastDayOfMonth: boolean;
+  isToday: boolean;
+  isWeekend: boolean;
+  isLastMonth: boolean;
+  isNextMonth: boolean;
+  isStartDate: boolean;
+  isEndDate: boolean;
+  isWithinSelection: boolean;
+  isPreview: boolean;
+  isDisabled: boolean;
+  isSelectable: boolean;
+};
+
+type GetMonthDayMetaProps = {
+  month: Date;
+  weekStartsOn: WeekStartOffset;
+  startDate: NullableDate;
+  endDate: NullableDate;
+  hoverDate: NullableDate;
+  minDate?: Date;
+  maxDate?: Date;
+};
 
 export const getMonthDayMeta = (
   date: Date,
@@ -27,8 +54,8 @@ export const getMonthDayMeta = (
     maxDate,
     month,
     weekStartsOn,
-  }: MonthDayInfo
-): MonthDayMeta => {
+  }: GetMonthDayMetaProps
+): DayMeta => {
   const range = startDate && getPickerRange(startDate, endDate, hoverDate);
   const isLastMonth = isSameMonth(subMonths(date, 1), month);
   const isNextMonth = isSameMonth(addMonths(date, 1), month);

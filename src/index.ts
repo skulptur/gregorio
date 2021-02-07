@@ -1,9 +1,2 @@
-export { getPages } from './lib/getPages';
-export {
-  WeekDay,
-  NullableDateRange,
-  NullableDate,
-  Options,
-  CalendarPage,
-  MonthDay,
-} from './lib/types';
+export { getPages, GetPagesProps, CalendarPage, Day } from './lib/getPages';
+export { WeekDay, NullableDateRange, NullableDate } from './lib/types';
