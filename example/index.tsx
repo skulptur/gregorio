@@ -26,6 +26,8 @@ const useGregorio = () => {
     pageCount: 2,
   });
 
+  console.log(pages);
+
   const previousMonth = () => {
     setActiveMonth(addMonths(activeMonth, -1));
   };

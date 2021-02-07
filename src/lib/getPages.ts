@@ -12,7 +12,7 @@ export function getPages({
   pageCount = 1,
   weekStartsOn = 0,
   titleFormat = 'MMMM yyyy',
-  weekDayFormat = 'EEEEEE',
+  weekDayFormat = 'eeeeee',
   activeMonth,
   locale,
   hoverDate,
