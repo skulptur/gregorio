@@ -1,38 +1,23 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-import { getPages, NullableDateRange, MonthDay } from '../dist';
+import { gregorio, Props, Day } from '../dist';
 import { enUS } from 'date-fns/locale';
-import { addMonths } from 'date-fns';
 import cx from 'classnames';
 
 const useGregorio = () => {
-  const [activeMonth, setActiveMonth] = React.useState(new Date());
-  const [hoverDate, setHoverDate] = React.useState<Date | null>(null);
-  const [dateRange, setDateRange] = React.useState<NullableDateRange>({
-    startDate: null,
-    endDate: null,
-  });
+  const [props, setProps] = React.useState<Partial<Props>>({});
 
-  const pages = getPages({
-    activeMonth,
-    dateRange,
-    setDateRange,
-    hoverDate,
-    setHoverDate,
-    isRange: true,
-    locale: enUS,
-    pageCount: 2,
-  });
-
-  const previousMonth = () => {
-    setActiveMonth(addMonths(activeMonth, -1));
-  };
-
-  const nextMonth = () => {
-    setActiveMonth(addMonths(activeMonth, 1));
-  };
+  const { pages, ...handlers } = gregorio(
+    {
+      ...props,
+      setProps,
+      isRange: true,
+      locale: enUS,
+      pageCount: 2,
+    },
+    setProps
+  );
 
   const pagesWithReactPropsGetter = pages.map(page => {
     return {
@@ -41,7 +26,6 @@ const useGregorio = () => {
         return {
           ...day,
           getDayProps: () => {
-            // TODO: add key, or even add it on the lib itself
             return {
               onClick: () => {
                 day.select();
@@ -58,8 +42,7 @@ const useGregorio = () => {
 
   return {
     pages: pagesWithReactPropsGetter,
-    previousMonth,
-    nextMonth,
+    ...handlers,
   };
 };
 
@@ -110,7 +93,7 @@ const App = () => {
   );
 };
 
-const getClassNames = (day: MonthDay) => {
+const getClassNames = (day: Day) => {
   return cx({
     today: day.isToday,
     weekend: day.isWeekend,
