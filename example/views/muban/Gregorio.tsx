@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { Page } from './Page';
+import { Picker } from './Picker';
 import { times } from 'lodash';
 import { createApp } from '@muban/muban';
 
@@ -13,15 +13,20 @@ export const Gregorio = () => {
   useEffect(() => {
     if (!elementRef.current) return;
 
-    createApp(Page).mount(elementRef.current.parentElement!);
+    createApp(Picker).mount(elementRef.current.parentElement!);
   }, []);
 
   // View is rendered in React but without anything dynamic, to simulate a CMS
   return (
-    <div ref={elementRef} className="pages">
+    <div ref={elementRef} className="pages" data-component="picker">
       {times(pages, pageId => {
         return (
-          <div key={pageId} data-component="page" className="page">
+          <div
+            key={pageId}
+            data-component="page"
+            data-ref="page"
+            className="page"
+          >
             <div className="header">
               <div className="nav">
                 <div
