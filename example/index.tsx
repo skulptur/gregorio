@@ -11,7 +11,6 @@ const useGregorio = () => {
   const { pages, ...handlers } = gregorio(
     {
       ...props,
-      setProps,
       isRange: true,
       locale: enUS,
       pageCount: 2,
