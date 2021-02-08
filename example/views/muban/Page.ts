@@ -4,12 +4,10 @@ import {
   bind,
   computed,
   bindMap,
-  ref,
   refCollection,
   propType,
 } from '@muban/muban';
 import { getDayClassNames } from '../utils/getDayClassNames';
-import { useGregorio } from './useGregorio';
 
 export const Page = defineComponent({
   name: 'page',
@@ -50,10 +48,11 @@ export const Page = defineComponent({
       ...bindMap(refs.day, (_ref, index) => {
         return {
           text: computed(() => (props.page as any)?.days[index].formattedText),
-          css: {
-            // TODO: fix
-            // [getDayClassNames((props.page as any)?.days[index])]: ref(true),
-          },
+          css: computed(() => {
+            if (!props.page) return {};
+
+            return getDayClassNames((props.page as any)?.days[index]);
+          }),
           onClick: () => (props.page as any)?.days[index].select(),
           onMouseOver: () => (props.page as any)?.days[index].hover(),
         };

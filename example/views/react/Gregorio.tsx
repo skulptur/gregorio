@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { getDayClassNames } from '../utils/getDayClassNames';
 import { useGregorio } from './useGregorio';
+import cx from 'classnames';
 
 export const Gregorio = () => {
   const { pages, previousMonth, nextMonth } = useGregorio();
@@ -34,7 +35,7 @@ export const Gregorio = () => {
                 return (
                   <div
                     key={pageDay.date.toString()}
-                    className={`day-of-month ${getDayClassNames(pageDay)}`}
+                    className={`day-of-month ${cx(getDayClassNames(pageDay))}`}
                     {...pageDay.getDayProps()}
                   >
                     {pageDay.formattedText}

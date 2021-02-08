@@ -1,8 +1,7 @@
 import { Day } from '../../../dist';
-import cx from 'classnames';
 
 export const getDayClassNames = (day: Day) => {
-  return cx({
+  return {
     today: day.isToday,
     weekend: day.isWeekend,
     'start-date': day.isStartDate,
@@ -14,5 +13,5 @@ export const getDayClassNames = (day: Day) => {
     'last-month': day.isLastMonth,
     'next-month': day.isNextMonth,
     disabled: day.isDisabled,
-  });
+  };
 };
