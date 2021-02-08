@@ -13,16 +13,16 @@ export const Picker = defineComponent({
     page: refComponents(Page),
   },
   setup({ refs }) {
-    const pageId = 0;
-    // TODO: this needs to be created on a parent component and passed down as props
     const gregorio = useGregorio();
 
     return [
       ...bindMap(refs.page, (_ref, index) => {
         return {
-          getPage: () => {
+          onNext: () => gregorio.value.nextMonth(),
+          onPrevious: () => gregorio.value.previousMonth(),
+          page: computed(() => {
             return gregorio.value.pages[index];
-          },
+          }),
         };
       }),
     ];

@@ -16,51 +16,46 @@ export const Page = defineComponent({
   refs: {
     title: 'title',
     weekDayLabel: refCollection('weekDayLabel'),
-    day: refCollection('day'), // refElement, refCollection, refComponent, refComponents?! refCollection is a weird name
+    day: refCollection('day'),
     previousButton: refElement('previousButton'),
     nextButton: 'nextButton',
   },
   props: {
-    getPage: propType.func.optional,
+    onNext: propType.func.optional,
+    onPrevious: propType.func.optional,
+    page: { type: Object, isOptional: true },
   },
   setup({ props, refs }) {
-    const pageId = 0;
     // TODO: this needs to be created on a parent component and passed down as props
-    const gregorio = useGregorio();
-    console.log('props.getPage', props.getPage && props.getPage());
 
     return [
       bind(refs.title, {
-        text: computed(() => gregorio.value.pages[pageId].title),
+        text: computed(() => (props.page as any)?.title),
       }),
       bind(refs.previousButton, {
         click: () => {
-          gregorio.value.previousMonth();
+          props.onPrevious && props.onPrevious();
         },
       }),
       bind(refs.nextButton, {
         click: () => {
-          gregorio.value.nextMonth();
+          props.onNext && props.onNext();
         },
       }),
       ...bindMap(refs.weekDayLabel, (_ref, index) => {
         return {
-          text: gregorio.value.pages[pageId].weekLabels[index],
+          text: computed(() => (props.page as any)?.weekLabels[index]),
         };
       }),
       ...bindMap(refs.day, (_ref, index) => {
         return {
-          text: computed(
-            () => gregorio.value.pages[pageId].days[index].formattedText
-          ),
+          text: computed(() => (props.page as any)?.days[index].formattedText),
           css: {
             // TODO: fix
-            [getDayClassNames(gregorio.value.pages[pageId].days[index])]: ref(
-              true
-            ),
+            // [getDayClassNames((props.page as any)?.days[index])]: ref(true),
           },
-          onClick: () => gregorio.value.pages[pageId].days[index].select(),
-          onMouseOver: () => gregorio.value.pages[pageId].days[index].hover(),
+          onClick: () => (props.page as any)?.days[index].select(),
+          onMouseOver: () => (props.page as any)?.days[index].hover(),
         };
       }),
     ];

@@ -11,7 +11,6 @@ export const useGregorio = () => {
   };
 
   const gregorioRef = computed(() => {
-    console.log('update');
     return gregorio(
       {
         ...props.value,

@@ -25,6 +25,7 @@ export const Gregorio = () => {
             key={pageId}
             data-component="page"
             data-ref="page"
+            data-test="hello"
             className="page"
           >
             <div className="header">
