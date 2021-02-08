@@ -24,8 +24,6 @@ export const Page = defineComponent({
     page: { type: Object, isOptional: true },
   },
   setup({ props, refs }) {
-    // TODO: this needs to be created on a parent component and passed down as props
-
     return [
       bind(refs.title, {
         text: computed(() => (props.page as any)?.title),
@@ -53,8 +51,12 @@ export const Page = defineComponent({
 
             return getDayClassNames((props.page as any)?.days[index]);
           }),
-          onClick: () => (props.page as any)?.days[index].select(),
-          onMouseOver: () => (props.page as any)?.days[index].hover(),
+          click: () => {
+            (props.page as any)?.days[index].select();
+          },
+          mouseover: () => {
+            (props.page as any)?.days[index].hover();
+          },
         };
       }),
     ];
