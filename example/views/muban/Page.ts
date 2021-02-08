@@ -25,9 +25,9 @@ export const Page = defineComponent({
   },
   setup({ props, refs }) {
     return [
-      bind(refs.title, {
-        text: computed(() => (props.page as any)?.title),
-      }),
+      // bind(refs.title, {
+      //   text: computed(() => (props.page as any)?.title),
+      // }),
       bind(refs.previousButton, {
         click: () => {
           props.onPrevious && props.onPrevious();
@@ -35,21 +35,26 @@ export const Page = defineComponent({
       }),
       bind(refs.nextButton, {
         click: () => {
+          console.log('next buton');
           props.onNext && props.onNext();
         },
       }),
-      ...bindMap(refs.weekDayLabel, (_ref, index) => {
-        return {
-          text: computed(() => (props.page as any)?.weekLabels[index]),
-        };
-      }),
+      // ...bindMap(refs.weekDayLabel, (_ref, index) => {
+      //   return {
+      //     text: computed(() => (props.page as any)?.weekLabels[index]),
+      //   };
+      // }),
       ...bindMap(refs.day, (_ref, index) => {
         return {
-          text: computed(() => (props.page as any)?.days[index].formattedText),
+          // text: computed(() => (props.page as any)?.days[index].formattedText),
           css: computed(() => {
+            console.log(props.page);
             if (!props.page) return {};
-
-            return getDayClassNames((props.page as any)?.days[index]);
+            const cssBinding = getDayClassNames(
+              (props.page as any)?.days[index]
+            );
+            console.log(cssBinding);
+            return cssBinding;
           }),
           click: () => {
             (props.page as any)?.days[index].select();
